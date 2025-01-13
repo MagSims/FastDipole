@@ -10,9 +10,11 @@ function angle_between_vectors(u, v)
 end
 
 # Returns that smallest rotation matrix R such that `R u = v` where u and v are
-# the normalized input vectors. If `u = v` then `R = I` and if `u = -v` then R
+# the input vectors, normalized. If `u = v` then `R = I` and if `u = -v` then R
 # is a rotation by π about an arbitrary axis perpendicular to u and v.
 function rotation_between_vectors(u, v)
+    @assert !iszero(u) && !iszero(v)
+
     u, v = normalize.((u, v))
     axis = u × v
     θ = angle_between_vectors(u, v)
@@ -34,7 +36,8 @@ end
 # equivalently written `I + s K + (1-c) K²`, with `K = [0 -z y; z 0 -x; -y x 0]`
 # involving `s, c = sincos(θ)` and `x, y, z = normalize(n)`.
 function axis_angle_to_matrix(n, θ)
-    @assert !iszero(norm(n))
+    @assert !iszero(n)
+
     x, y, z = normalize(n)
     s, c = sincos(θ)
     t = 1 - c

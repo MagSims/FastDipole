@@ -4,7 +4,7 @@ function swt_hamiltonian_dipole!(H::Matrix{ComplexF64}, swt::SpinWaveTheory, q_r
     (; local_rotations, stevens_coefs, sqrtS) = data
     (; extfield, gs) = sys
 
-    L = nbands(swt) 
+    L = nbands(swt)
     @assert size(H) == (2L, 2L)
 
     # Initialize Hamiltonian buffer 
@@ -195,7 +195,6 @@ function multiply_by_hamiltonian_dipole!(y::AbstractMatrix{ComplexF64}, x::Abstr
     # Pair interactions 
     for ints in sys.interactions_union
 
-        # Bilinear exchange
         for coupling in ints.pair
             (; isculled, bond) = coupling
             isculled && break
@@ -209,6 +208,7 @@ function multiply_by_hamiltonian_dipole!(y::AbstractMatrix{ComplexF64}, x::Abstr
                 cis(2π*dot(q, bond.n))
             end
 
+            # Bilinear exchange
             if !iszero(coupling.bilin)
                 J = coupling.bilin  # This is Rij in previous notation (transformed exchange matrix)
 

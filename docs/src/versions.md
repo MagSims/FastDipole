@@ -10,6 +10,8 @@
 * The `regularization` parameter in [`SpinWaveTheory`](@ref) is reduced by half,
   and now corresponds to an effective energy shift. This may affect intensities,
   especially at small excitation energies.
+* Vacancies defined by [`set_vacancy_at!`](@ref) are supported in linear spin
+  wave theory. Empty sites are modeled using bosons that do not excite.
 
 ## v0.7.4
 (Dec 6, 2024)
